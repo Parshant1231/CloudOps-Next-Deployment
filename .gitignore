@@ -1,0 +1,32 @@
+# ===== DEPENDENCIES =====
+# Node modules - NEVER commit these (too large)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ===== ENVIRONMENT FILES =====
+# Environment variables (contains sensitive data)
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# ===== BUILD OUTPUT =====
+# Build folders - these are generated and shouldn't be committed
+dist/
+build/
+out/
+.next/           # Next.js build
+.temp/
+.tmp/
+
+# ===== OS GENERATED FILES =====
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
