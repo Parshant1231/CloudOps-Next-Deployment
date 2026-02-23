@@ -1,0 +1,26 @@
+{
+  "name": "elegant-events-website",
+  "version": "1.0.0",
+  "description": "A beautiful event management website for weddings, parties, and anniversaries",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "build": "ncc build server.js -o dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "events",
+    "wedding",
+    "party",
+    "anniversary",
+    "nodejs",
+    "static-website"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.4",
+    "nodemon": "^3.1.14"
+  }
+}

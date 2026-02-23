@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Elegant Events</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    
+    <style>
+        /* Contact Page Specific Styles */
+        .contact-header {
+            height: 50vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('/images/contact-header.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+        
+        .contact-header h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            animation: slideInDown 1s ease;
+        }
+        
+        .contact-header p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+            animation: slideInUp 1s ease;
+        }
+        
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Contact Info Cards */
+        .contact-info-section {
+            padding: 80px 0;
+            background: #f9f9f9;
+        }
+        
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: -100px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 40px 30px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .info-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 50px rgba(212,175,55,0.2);
+        }
+        
+        .info-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), #ffd700);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover .info-icon {
+            transform: rotateY(360deg);
+        }
+        
+        .info-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .info-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .info-card .contact-detail {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-top: 10px;
+        }
+        
+        /* Contact Form Section */
+        .contact-form-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+        
+        .form-container {
+            padding: 50px;
+        }
+        
+        .form-container h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .form-container p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 14px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 5px rgba(212,175,55,0.1);
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+        }
+        
+        .submit-btn i {
+            margin-left: 10px;
+        }
+        
+        .form-image {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        .form-image-content {
+            text-align: center;
+            color: white;
+            padding: 50px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .form-image-content i {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        
+        .form-image-content h3 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            font-family: var(--font-primary);
+        }
+        
+        .form-image-content p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .form-image-content .highlight {
+            font-size: 48px;
+            font-weight: 900;
+            margin: 20px 0;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Map Section */
+        .map-section {
+            height: 450px;
+            position: relative;
+        }
+        
+        #map {
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            z-index: 10;
+            max-width: 300px;
+        }
+        
+        .map-overlay h4 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .map-overlay p {
+            margin-bottom: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .map-overlay i {
+            color: var(--primary-color);
+            width: 25px;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background: #f9f9f9;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .faq-item {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .faq-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 20px 40px rgba(212,175,55,0.1);
+        }
+        
+        .faq-question {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .faq-question i {
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+        
+        .faq-question h4 {
+            font-size: 18px;
+            color: var(--dark-color);
+        }
+        
+        .faq-answer {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            padding-left: 35px;
+        }
+        
+        /* Business Hours */
+        .hours-section {
+            padding: 50px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            text-align: center;
+        }
+        
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 900px;
+            margin: 40px auto 0;
+        }
+        
+        .hours-item {
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .hours-item i {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        
+        .hours-item h5 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .hours-item p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 992px) {
+            .contact-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+                margin-top: 50px;
+            }
+            
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+            
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .contact-header h1 {
+                font-size: 36px;
+            }
+            
+            .contact-info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .hours-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (same as index.html) -->
+    <nav class="navbar scrolled">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="/">
+                    <span class="logo-text">ELEGANT</span>
+                    <span class="logo-subtext">EVENTS</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pages/weddings.html">Weddings</a></li>
+                            <li><a href="/pages/parties.html">Parties</a></li>
+                            <li><a href="/pages/anniversary.html">Anniversary</a></li>
+                            <li><a href="/pages/corporate.html">Corporate Events</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/#gallery">Gallery</a></li>
+                    <li><a href="/#about">About</a></li>
+                    <li><a href="/pages/contact.html" class="active">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-buttons">
+                <a href="/pages/contact.html" class="btn-quote">Get Quote</a>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Contact Header -->
+    <section class="contact-header">
+        <div class="container">
+            <h1 data-aos="fade-down">Get In Touch</h1>
+            <p data-aos="fade-up">We'd love to hear about your upcoming event. Let's create something amazing together!</p>
+        </div>
+    </section>
+    
+    <!-- Contact Info Cards -->
+    <section class="contact-info-section">
+        <div class="container">
+            <div class="contact-info-grid">
+                <div class="info-card" data-aos="fade-up">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Visit Us</h3>
+                    <p>123 Event Street, Bandra West, Mumbai - 400050, Maharashtra, India</p>
+                    <div class="contact-detail">Get Directions →</div>
+                </div>
+                
+                <div class="info-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="info-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Call Us</h3>
+                    <p>Mon-Sat, 10AM to 8PM</p>
+                    <div class="contact-detail">+91 98765 43210</div>
+                    <div class="contact-detail">+91 98765 43211</div>
+                </div>
+                
+                <div class="info-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Us</h3>
+                    <p>24/7 Support</p>
+                    <div class="contact-detail">info@elegantevents.com</div>
+                    <div class="contact-detail">bookings@elegantevents.com</div>
+                </div>
+                
+                <div class="info-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Office Hours</h3>
+                    <p>We're open</p>
+                    <div class="contact-detail">Mon-Sat: 10AM - 8PM</div>
+                    <div class="contact-detail">Sunday: By Appointment</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="contact-wrapper" data-aos="fade-up">
+                <div class="form-container">
+                    <h2>Send Us a Message</h2>
+                    <p>Fill out the form below and we'll get back to you within 24 hours.</p>
+                    
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" placeholder="Enter your phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventType">Event Type *</label>
+                            <select id="eventType" name="eventType" required>
+                                <option value="">Select an event type</option>
+                                <option value="wedding">Wedding</option>
+                                <option value="party">Birthday/Party</option>
+                                <option value="anniversary">Anniversary</option>
+                                <option value="corporate">Corporate Event</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventDate">Event Date</label>
+                                <input type="date" id="eventDate" name="eventDate">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="guests">Number of Guests</label>
+                                <select id="guests" name="guests">
+                                    <option value="">Select range</option>
+                                    <option value="0-50">0-50</option>
+                                    <option value="51-100">51-100</option>
+                                    <option value="101-200">101-200</option>
+                                    <option value="201-500">201-500</option>
+                                    <option value="500+">500+</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Your Message *</label>
+                            <textarea id="message" name="message" placeholder="Tell us about your event ideas..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="budget">Budget Range (₹)</label>
+                            <select id="budget" name="budget">
+                                <option value="">Select budget range</option>
+                                <option value="50000">Below ₹50,000</option>
+                                <option value="100000">₹50,000 - ₹1,00,000</option>
+                                <option value="200000">₹1,00,000 - ₹2,00,000</option>
+                                <option value="500000">₹2,00,000 - ₹5,00,000</option>
+                                <option value="1000000">Above ₹5,00,000</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            Send Message <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="form-image">
+                    <div class="form-image-content">
+                        <i class="fas fa-comments"></i>
+                        <h3>Let's Talk Events!</h3>
+                        <p>We're here to turn your vision into reality. Every great event starts with a conversation.</p>
+                        <div class="highlight">24/7</div>
+                        <p>Support Available</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Business Hours -->
+    <section class="hours-section">
+        <div class="container">
+            <h2 data-aos="fade-up">We're Here When You Need Us</h2>
+            <div class="hours-grid">
+                <div class="hours-item" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-calendar-check"></i>
+                    <h5>Weekdays</h5>
+                    <p>Monday - Friday<br>10:00 AM - 8:00 PM</p>
+                </div>
+                
+                <div class="hours-item" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h5>Weekends</h5>
+                    <p>Saturday<br>10:00 AM - 6:00 PM</p>
+                </div>
+                
+                <div class="hours-item" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-clock"></i>
+                    <h5>Emergency</h5>
+                    <p>Sunday & Holidays<br>On Call Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Map Section -->
+    <section class="map-section">
+        <div id="map"></div>
+        <div class="map-overlay" data-aos="fade-right">
+            <h4><i class="fas fa-map-pin"></i> Our Office</h4>
+            <p><i class="fas fa-building"></i> Elegant Events HQ</p>
+            <p><i class="fas fa-map-marker-alt"></i> 123 Event Street, Bandra West, Mumbai - 400050</p>
+            <p><i class="fas fa-train"></i> Nearest Station: Bandra Station (10 min walk)</p>
+            <p><i class="fas fa-parking"></i> Parking Available</p>
+            <a href="#" class="btn btn-primary" style="margin-top: 15px; display: block;">Get Directions</a>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">FAQ</span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-description">Got questions? We've got answers!</p>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-item" data-aos="fade-up">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        <h4>How far in advance should I book?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For weddings and large events, we recommend booking 6-12 months in advance. For smaller parties and celebrations, 2-3 months is usually sufficient. However, we can accommodate last-minute requests based on availability.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="faq-question">
+                        <i class="fas fa-rupee-sign"></i>
+                        <h4>Do you offer payment plans?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We offer flexible payment plans. Typically we require a 25% deposit to secure your date, with the remaining balance divided into convenient installments leading up to your event.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up">
+                    <div class="faq-question">
+                        <i class="fas fa-users"></i>
+                        <h4>Can you handle events of any size?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! We've planned events from intimate gatherings of 20 guests to grand celebrations with over 2000 guests. Our team scales accordingly to ensure perfection at any size.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="faq-question">
+                        <i class="fas fa-globe"></i>
+                        <h4>Do you plan destination events?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We specialize in destination weddings and events across India and internationally. We handle travel, accommodation, vendor coordination, and all logistics.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up">
+                    <div class="faq-question">
+                        <i class="fas fa-file-contract"></i>
+                        <h4>What's included in your packages?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our packages include venue selection, decoration, catering, entertainment, photography, and coordination. Custom packages are also available based on your specific needs.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="faq-question">
+                        <i class="fas fa-handshake"></i>
+                        <h4>Can I meet the team before booking?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Of course! We offer free initial consultations at our office or via video call. We believe in building a personal connection with our clients.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer (same as index.html) -->
+    <footer class="footer">
+        <!-- Copy footer from index.html -->
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/js/main.js"></script>
+    
+    <script>
+        // Initialize map
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize map (Mumbai coordinates)
+            var map = L.map('map').setView([19.0596, 72.8295], 15);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            
+            // Add marker
+            var marker = L.marker([19.0596, 72.8295]).addTo(map);
+            marker.bindPopup("<b>Elegant Events</b><br>123 Event Street, Bandra West").openPopup();
+            
+            // Form submission
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for contacting us! We will get back to you within 24 hours.');
+                    this.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

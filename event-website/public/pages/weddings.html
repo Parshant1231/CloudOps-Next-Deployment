@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Planning - Elegant Events</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <style>
+        .page-header {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/wedding-header.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            margin-top: 80px;
+        }
+        
+        .page-header h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .wedding-packages {
+            padding: 80px 0;
+        }
+        
+        .package-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .package-header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .package-header h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .package-price {
+            font-size: 36px;
+            font-weight: 900;
+            font-family: var(--font-primary);
+        }
+        
+        .package-price span {
+            font-size: 16px;
+            font-weight: 400;
+        }
+        
+        .package-body {
+            padding: 30px;
+        }
+        
+        .package-body ul {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .package-body ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .package-body ul li i {
+            color: var(--primary-color);
+        }
+        
+        .package-body .btn {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .wedding-process {
+            background-color: #f9f9f9;
+            padding: 80px 0;
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 50px;
+            right: -15px;
+            width: 30px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 900;
+            margin: 0 auto 20px;
+            border: 4px solid var(--white);
+            box-shadow: var(--shadow);
+        }
+        
+        .process-step h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .process-step p {
+            color: var(--text-light);
+        }
+        
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 36px;
+            }
+            
+            .process-step:not(:last-child)::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (same as index.html) -->
+    <nav class="navbar scrolled">
+        <!-- Copy navigation from index.html -->
+                 <div class="nav-container">
+            <div class="logo">
+                <a href="/">
+                    <span class="logo-text">ELEGANT</span>
+                    <span class="logo-subtext">EVENTS</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="/" class="active">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pages/weddings.html">Weddings</a></li>
+                            <li><a href="/pages/parties.html">Parties</a></li>
+                            <li><a href="/pages/anniversary.html">Anniversary</a></li>
+                            <li><a href="/pages/corporate.html">Corporate Events</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="/pages/contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-buttons">
+                <a href="/pages/contact.html" class="btn-quote">Get Quote</a>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container" data-aos="fade-up">
+            <h1>Wedding Planning Services</h1>
+            <p>Your dream wedding deserves perfect planning. Let us create magic for your special day.</p>
+        </div>
+    </section>
+    
+    <!-- Wedding Packages -->
+    <section class="wedding-packages">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Our Packages</span>
+                <h2 class="section-title">Wedding Packages</h2>
+                <p class="section-description">Choose the perfect package for your special day</p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Package 1 -->
+                <div class="package-card" data-aos="fade-up">
+                    <div class="package-header">
+                        <h3>Intimate Wedding</h3>
+                        <div class="package-price">₹1,50,000 <span>starting</span></div>
+                    </div>
+                    <div class="package-body">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Venue Decoration</li>
+                            <li><i class="fas fa-check"></i> Catering (50 guests)</li>
+                            <li><i class="fas fa-check"></i> Basic Photography</li>
+                            <li><i class="fas fa-check"></i> Wedding Cake</li>
+                            <li><i class="fas fa-check"></i> Bridal Bouquet</li>
+                        </ul>
+                        <a href="/pages/contact.html" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+                
+                <!-- Package 2 -->
+                <div class="package-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="package-header" style="background: var(--accent-color);">
+                        <h3>Grand Wedding</h3>
+                        <div class="package-price">₹3,50,000 <span>starting</span></div>
+                    </div>
+                    <div class="package-body">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Luxury Venue Decoration</li>
+                            <li><i class="fas fa-check"></i> Premium Catering (200 guests)</li>
+                            <li><i class="fas fa-check"></i> Professional Photography & Video</li>
+                            <li><i class="fas fa-check"></i> Live Music/DJ</li>
+                            <li><i class="fas fa-check"></i> Wedding Favors</li>
+                            <li><i class="fas fa-check"></i> Makeup & Styling</li>
+                        </ul>
+                        <a href="/pages/contact.html" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+                
+                <!-- Package 3 -->
+                <div class="package-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="package-header" style="background: var(--secondary-color);">
+                        <h3>Royal Wedding</h3>
+                        <div class="package-price">₹7,50,000 <span>starting</span></div>
+                    </div>
+                    <div class="package-body">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Destination Wedding Planning</li>
+                            <li><i class="fas fa-check"></i> Luxury Decoration & Lighting</li>
+                            <li><i class="fas fa-check"></i> Premium Catering (500+ guests)</li>
+                            <li><i class="fas fa-check"></i> Cinematic Videography</li>
+                            <li><i class="fas fa-check"></i> Celebrity Performance</li>
+                            <li><i class="fas fa-check"></i> Guest Accommodation</li>
+                            <li><i class="fas fa-check"></i> Wedding Planner (24/7)</li>
+                        </ul>
+                        <a href="/pages/contact.html" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Wedding Process -->
+    <section class="wedding-process">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">How We Work</span>
+                <h2 class="section-title">Our Wedding Planning Process</h2>
+            </div>
+            
+            <div class="process-steps">
+                <div class="process-step" data-aos="fade-up">
+                    <div class="step-number">1</div>
+                    <h4>Consultation</h4>
+                    <p>We discuss your vision, budget, and preferences</p>
+                </div>
+                
+                <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-number">2</div>
+                    <h4>Planning</h4>
+                    <p>We create a detailed plan and timeline</p>
+                </div>
+                
+                <div class="process-step" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-number">3</div>
+                    <h4>Execution</h4>
+                    <p>We bring your dream wedding to life</p>
+                </div>
+                
+                <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-number">4</div>
+                    <h4>Celebration</h4>
+                    <p>You enjoy your perfect day stress-free</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content" data-aos="fade-up">
+                <h2>Ready to Plan Your Dream Wedding?</h2>
+                <p>Let's create the wedding you've always imagined</p>
+                <a href="/pages/contact.html" class="btn btn-primary btn-large">Start Planning</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer (same as index.html) -->
+    <footer class="footer">
+        <!-- Copy footer from index.html -->
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

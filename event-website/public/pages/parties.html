@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Party & Birthday Planning - Elegant Events</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <style>
+        /* Page Specific Styles */
+        .page-header {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('/images/party-header.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,100 M100,0 L0,100" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></svg>');
+            background-size: 30px 30px;
+            opacity: 0.3;
+            animation: move 20s linear infinite;
+        }
+        
+        @keyframes move {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+        
+        .page-header h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(212,175,55,0.5); }
+            to { text-shadow: 0 0 20px rgba(212,175,55,0.8); }
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* Party Themes Section */
+        .party-themes {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #fff5f5 0%, #fff0f0 100%);
+        }
+        
+        .theme-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: 100%;
+            position: relative;
+        }
+        
+        .theme-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(212,175,55,0.3);
+        }
+        
+        .theme-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .theme-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .theme-card:hover .theme-image img {
+            transform: scale(1.15);
+        }
+        
+        .theme-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+        
+        .theme-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary-color), #ffd700);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .theme-content {
+            padding: 30px;
+            position: relative;
+        }
+        
+        .theme-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), #ffd700);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: -60px auto 20px;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(212,175,55,0.3);
+            position: relative;
+            z-index: 3;
+        }
+        
+        .theme-content h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            text-align: center;
+        }
+        
+        .theme-features {
+            list-style: none;
+            margin: 20px 0;
+            padding: 0;
+        }
+        
+        .theme-features li {
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-light);
+        }
+        
+        .theme-features li i {
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+        
+        .theme-price {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--primary-color);
+            font-family: var(--font-primary);
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .theme-price span {
+            font-size: 16px;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+        
+        /* Party Packages */
+        .party-packages {
+            padding: 80px 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23d4af37" stroke-width="0.5" stroke-dasharray="5,5"/></svg>');
+            background-size: 100px 100px;
+            position: relative;
+        }
+        
+        .package-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            border: 2px solid transparent;
+        }
+        
+        .package-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212,175,55,0.2);
+        }
+        
+        .package-card.popular {
+            border: 2px solid var(--primary-color);
+            transform: scale(1.05);
+            z-index: 2;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: linear-gradient(135deg, var(--primary-color), #ffd700);
+            color: white;
+            padding: 8px 40px;
+            transform: rotate(45deg);
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .package-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), #ffd700);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 20px rgba(212,175,55,0.3);
+        }
+        
+        .package-card h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .package-price {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--primary-color);
+            font-family: var(--font-primary);
+            margin: 20px 0;
+        }
+        
+        .package-price span {
+            font-size: 16px;
+            color: var(--text-light);
+        }
+        
+        .package-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .package-features li {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .package-features li i.fa-check {
+            color: #28a745;
+        }
+        
+        .package-features li i.fa-times {
+            color: #dc3545;
+        }
+        
+        /* Entertainment Section */
+        .entertainment {
+            padding: 80px 0;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><path d="M20,20 L80,80 M80,20 L20,80" stroke="%23d4af37" stroke-width="1" opacity="0.3"/></svg>');
+            background-size: cover;
+            background-attachment: fixed;
+            color: white;
+        }
+        
+        .entertainment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .entertainment-item {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .entertainment-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.2);
+            border-color: var(--primary-color);
+        }
+        
+        .entertainment-item i {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .entertainment-item h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .entertainment-item p {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 42px;
+            }
+            
+            .package-card.popular {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (same as index.html) -->
+    <nav class="navbar scrolled">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="/">
+                    <span class="logo-text">ELEGANT</span>
+                    <span class="logo-subtext">EVENTS</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="active">Services <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pages/weddings.html">Weddings</a></li>
+                            <li><a href="/pages/parties.html" class="active">Parties</a></li>
+                            <li><a href="/pages/anniversary.html">Anniversary</a></li>
+                            <li><a href="/pages/corporate.html">Corporate Events</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/#gallery">Gallery</a></li>
+                    <li><a href="/#about">About</a></li>
+                    <li><a href="/pages/contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-buttons">
+                <a href="/pages/contact.html" class="btn-quote">Get Quote</a>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container" data-aos="fade-up">
+            <h1>Party & Birthday <br>Celebrations</h1>
+            <p>Life is a party - let's make yours unforgettable! From intimate birthdays to grand celebrations.</p>
+        </div>
+    </section>
+    
+    <!-- Party Themes Section -->
+    <section class="party-themes">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Popular Themes</span>
+                <h2 class="section-title">Party Themes & Concepts</h2>
+                <p class="section-description">Choose from our exciting party themes or create your own</p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Theme 1 -->
+                <div class="theme-card" data-aos="fade-up">
+                    <div class="theme-image">
+                        <img src="/images/theme-neon.jpg" alt="Neon Party">
+                        <div class="theme-badge">Most Popular</div>
+                    </div>
+                    <div class="theme-content">
+                        <div class="theme-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Neon Glow Party</h3>
+                        <ul class="theme-features">
+                            <li><i class="fas fa-check"></i> UV Black Lights</li>
+                            <li><i class="fas fa-check"></i> Neon Decorations</li>
+                            <li><i class="fas fa-check"></i> Glow Sticks & Accessories</li>
+                            <li><i class="fas fa-check"></i> Fluorescent Face Painting</li>
+                            <li><i class="fas fa-check"></i> LED Dance Floor</li>
+                        </ul>
+                        <div class="theme-price">₹75,000 <span>starting</span></div>
+                        <a href="/pages/contact.html" class="btn btn-primary" style="width: 100%;">Book This Theme</a>
+                    </div>
+                </div>
+                
+                <!-- Theme 2 -->
+                <div class="theme-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="theme-image">
+                        <img src="/images/theme-bollywood.jpg" alt="Bollywood Theme">
+                    </div>
+                    <div class="theme-content">
+                        <div class="theme-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <h3>Bollywood Night</h3>
+                        <ul class="theme-features">
+                            <li><i class="fas fa-check"></i> Bollywood Decor</li>
+                            <li><i class="fas fa-check"></i> Live DJ - Bollywood Hits</li>
+                            <li><i class="fas fa-check"></i> Dance Floor with Lights</li>
+                            <li><i class="fas fa-check"></i> Bollywood Photo Booth</li>
+                            <li><i class="fas fa-check"></i> Traditional Snacks Counter</li>
+                        </ul>
+                        <div class="theme-price">₹85,000 <span>starting</span></div>
+                        <a href="/pages/contact.html" class="btn btn-primary" style="width: 100%;">Book This Theme</a>
+                    </div>
+                </div>
+                
+                <!-- Theme 3 -->
+                <div class="theme-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="theme-image">
+                        <img src="/images/theme-masquerade.jpg" alt="Masquerade">
+                    </div>
+                    <div class="theme-content">
+                        <div class="theme-icon">
+                            <i class="fas fa-mask"></i>
+                        </div>
+                        <h3>Masquerade Ball</h3>
+                        <ul class="theme-features">
+                            <li><i class="fas fa-check"></i> Venetian Masks</li>
+                            <li><i class="fas fa-check"></i> Elegant Ballroom Setup</li>
+                            <li><i class="fas fa-check"></i> Live Orchestra</li>
+                            <li><i class="fas fa-check"></i> Gourmet Dinner</li>
+                            <li><i class="fas fa-check"></i> Champagne Fountain</li>
+                        </ul>
+                        <div class="theme-price">₹1,50,000 <span>starting</span></div>
+                        <a href="/pages/contact.html" class="btn btn-primary" style="width: 100%;">Book This Theme</a>
+                    </div>
+                </div>
+                
+                <!-- Theme 4 -->
+                <div class="theme-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="theme-image">
+                        <img src="/images/theme-pool.jpg" alt="Pool Party">
+                    </div>
+                    <div class="theme-content">
+                        <div class="theme-icon">
+                            <i class="fas fa-swimmer"></i>
+                        </div>
+                        <h3>Poolside Paradise</h3>
+                        <ul class="theme-features">
+                            <li><i class="fas fa-check"></i> Pool Decoration</li>
+                            <li><i class="fas fa-check"></i> Floating Lights</li>
+                            <li><i class="fas fa-check"></i> Beach Balls & Inflatables</li>
+                            <li><i class="fas fa-check"></i> Cocktail Bar</li>
+                            <li><i class="fas fa-check"></i> Live DJ & Dance Floor</li>
+                        </ul>
+                        <div class="theme-price">₹95,000 <span>starting</span></div>
+                        <a href="/pages/contact.html" class="btn btn-primary" style="width: 100%;">Book This Theme</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Party Packages -->
+    <section class="party-packages">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Pricing</span>
+                <h2 class="section-title">Party Packages</h2>
+                <p class="section-description">Choose the perfect package for your celebration</p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Basic Package -->
+                <div class="package-card" data-aos="fade-right">
+                    <div class="package-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3>Basic Party</h3>
+                    <div class="package-price">₹50,000 <span>starting</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Basic Decoration</li>
+                        <li><i class="fas fa-check"></i> Catering (50 guests)</li>
+                        <li><i class="fas fa-check"></i> DJ for 4 hours</li>
+                        <li><i class="fas fa-check"></i> Party Favors</li>
+                        <li><i class="fas fa-times"></i> Photography</li>
+                        <li><i class="fas fa-times"></i> Special Effects</li>
+                    </ul>
+                    <a href="/pages/contact.html" class="btn btn-secondary">Select Package</a>
+                </div>
+                
+                <!-- Premium Package (Popular) -->
+                <div class="package-card popular" data-aos="zoom-in">
+                    <div class="popular-badge">BESTSELLER</div>
+                    <div class="package-icon" style="background: linear-gradient(135deg, #ffd700, var(--primary-color));">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Premium Party</h3>
+                    <div class="package-price">₹1,20,000 <span>starting</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Themed Decoration</li>
+                        <li><i class="fas fa-check"></i> Premium Catering (100 guests)</li>
+                        <li><i class="fas fa-check"></i> Professional DJ & MC</li>
+                        <li><i class="fas fa-check"></i> Photography & Videography</li>
+                        <li><i class="fas fa-check"></i> Photo Booth</li>
+                        <li><i class="fas fa-check"></i> Special Effects (Smoke/Lights)</li>
+                    </ul>
+                    <a href="/pages/contact.html" class="btn btn-primary">Select Package</a>
+                </div>
+                
+                <!-- Luxury Package -->
+                <div class="package-card" data-aos="fade-left">
+                    <div class="package-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Luxury Party</h3>
+                    <div class="package-price">₹2,50,000 <span>starting</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Luxury Themed Decoration</li>
+                        <li><i class="fas fa-check"></i> Gourmet Catering (200 guests)</li>
+                        <li><i class="fas fa-check"></i> Celebrity DJ/Live Band</li>
+                        <li><i class="fas fa-check"></i> Cinematic Videography</li>
+                        <li><i class="fas fa-check"></i> Celebrity Appearance</li>
+                        <li><i class="fas fa-check"></i> Fireworks/Laser Show</li>
+                    </ul>
+                    <a href="/pages/contact.html" class="btn btn-secondary">Select Package</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Entertainment Section -->
+    <section class="entertainment">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Entertainment</span>
+                <h2 class="section-title" style="color: white;">Party Entertainment Options</h2>
+                <p class="section-description" style="color: rgba(255,255,255,0.8);">Make your party unforgettable with our entertainment choices</p>
+            </div>
+            
+            <div class="entertainment-grid">
+                <div class="entertainment-item" data-aos="flip-left">
+                    <i class="fas fa-music"></i>
+                    <h4>Live DJ & MC</h4>
+                    <p>Professional DJs with latest sound systems and lighting</p>
+                </div>
+                
+                <div class="entertainment-item" data-aos="flip-left" data-aos-delay="100">
+                    <i class="fas fa-microphone-alt"></i>
+                    <h4>Live Band</h4>
+                    <p>Rock, Bollywood, or Sufi bands for your party</p>
+                </div>
+                
+                <div class="entertainment-item" data-aos="flip-left" data-aos-delay="200">
+                    <i class="fas fa-magic"></i>
+                    <h4>Magician</h4>
+                    <p>Close-up magic and stage shows for all ages</p>
+                </div>
+                
+                <div class="entertainment-item" data-aos="flip-left" data-aos-delay="300">
+                    <i class="fas fa-theater-masks"></i>
+                    <h4>Face Painting</h4>
+                    <p>Professional face painters for kids and adults</p>
+                </div>
+                
+                <div class="entertainment-item" data-aos="flip-left" data-aos-delay="400">
+                    <i class="fas fa-camera"></i>
+                    <h4>Photo Booth</h4>
+                    <p>Green screen, props, and instant prints</p>
+                </div>
+                
+                <div class="entertainment-item" data-aos="flip-left" data-aos-delay="500">
+                    <i class="fas fa-fire"></i>
+                    <h4>Fire Dancers</h4>
+                    <p>Spectacular fire performances for outdoor parties</p>
+                </div>
+                
+                <div class="entertainment-item" data-aos="flip-left" data-aos-delay="600">
+                    <i class="fas fa-tint"></i>
+                    <h4>Henna Artists</h4>
+                    <p>Traditional mehndi artists for ladies' sangeet</p>
+                </div>
+                
+                <div class="entertainment-item" data-aos="flip-left" data-aos-delay="700">
+                    <i class="fas fa-gamepad"></i>
+                    <h4>Gaming Zone</h4>
+                    <p>Video games, VR experiences, and arcade games</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Party Gallery -->
+    <section class="gallery" style="padding: 80px 0;">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Moments</span>
+                <h2 class="section-title">Party Gallery</h2>
+                <p class="section-description">Glimpses of our amazing parties</p>
+            </div>
+            
+            <div class="gallery-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="gallery-item" data-aos="zoom-in">
+                    <img src="/images/party-gallery1.jpg" alt="Party">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h4>Neon Birthday</h4>
+                            <p>18th Birthday Celebration</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="/images/party-gallery2.jpg" alt="Party">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h4>New Year Eve</h4>
+                            <p>Countdown Party 2024</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="/images/party-gallery3.jpg" alt="Party">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h4>Surprise Party</h4>
+                            <p>30th Birthday Surprise</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-aos="zoom-in">
+                    <img src="/images/party-gallery4.jpg" alt="Party">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h4>Retro Night</h4>
+                            <p>80s Theme Party</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="/images/party-gallery5.jpg" alt="Party">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h4>Pool Party</h4>
+                            <p>Summer Bash</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="/images/party-gallery6.jpg" alt="Party">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h4>Karaoke Night</h4>
+                            <p>Friends Get-together</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content" data-aos="fade-up">
+                <h2>Ready to Throw the Perfect Party?</h2>
+                <p>Let's plan an unforgettable celebration together</p>
+                <a href="/pages/contact.html" class="btn btn-primary btn-large">Start Planning Your Party</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer (same as index.html) -->
+    <footer class="footer">
+        <!-- Copy footer from index.html -->
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <span class="logo-text">ELEGANT</span>
+                        <span class="logo-subtext">EVENTS</span>
+                    </div>
+                    <p>Creating unforgettable moments and beautiful memories since 2010.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#about">About Us</a></li>
+                        <li><a href="/#services">Services</a></li>
+                        <li><a href="/#gallery">Gallery</a></li>
+                        <li><a href="/pages/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Our Services</h4>
+                    <ul>
+                        <li><a href="/pages/weddings.html">Wedding Planning</a></li>
+                        <li><a href="/pages/parties.html">Birthday Parties</a></li>
+                        <li><a href="/pages/anniversary.html">Anniversary</a></li>
+                        <li><a href="#">Corporate Events</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Event Street, Mumbai</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> info@elegantevents.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Elegant Events. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
