@@ -30,9 +30,11 @@ const server = http.createServer((req, res) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
     
     // Handle root URL - serve index.html
-    let filePath = req.url === '/' 
-        ? path.join(__dirname, 'public', 'index.html')
-        : path.join(__dirname, 'public', req.url);
+    const baseDir = path.resolve(__dirname, '..');
+
+    let filePath = req.url === '/'
+        ? path.join(baseDir, 'public', 'index.html')
+        : path.join(baseDir, 'public', req.url);
     
     // Get file extension
     const extname = path.extname(filePath);
@@ -45,7 +47,7 @@ const server = http.createServer((req, res) => {
         if (err) {
             if (err.code === 'ENOENT') {
                 // Page not found - try serving 404.html
-                fs.readFile(path.join(__dirname, 'public', '404.html'), (err, content) => {
+                fs.readFile(path.join(baseDir, 'public', '404.html'), (err, content) => {
                     if (err) {
                         // Fallback 404 message
                         res.writeHead(404, { 'Content-Type': 'text/html' });
@@ -115,7 +117,7 @@ const server = http.createServer((req, res) => {
                 'Content-Type': contentType,
                 'Cache-Control': 'public, max-age=31536000' // Cache static assets for 1 year
             });
-            res.end(content, 'utf8');
+            res.end(content);
         }
     });
 });
